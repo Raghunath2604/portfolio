@@ -1,0 +1,174 @@
+{
+  "name": {
+    "first": "Raghunathareddy",
+    "last": "GR",
+    "full": "Raghunathareddy GR"
+  },
+  "email": "raghunathareddygr94@gmail.com",
+  "tagline": "Engineering reliable ML systems, from experiment tracking to production-grade MLOps.",
+  "description": "AI/ML Engineer specializing in MLOps, scalable deployment, and cloud infrastructure — architecting end-to-end ML lifecycles and production-grade systems.",
+  "roles": {
+    "short": "AI/ML Engineer",
+    "detailed": "MLOps & Cloud Infrastructure | Production ML Systems | CI/CD Automation"
+  },
+  "location": {
+    "based": "Bengaluru, India",
+    "availability": "Bengaluru / Remote"
+  },
+  "available": true,
+  "bio": "AI & Machine Learning engineer-in-the-making, currently pursuing a B.Tech in AI/ML while independently building and shipping production-grade MLOps systems. Self-taught through hands-on projects rather than a formal role — architecting end-to-end ML lifecycles, automating CI/CD pipelines, and managing containerized cloud infrastructure. Focused on low-latency inference APIs, feature-store architecture that eliminates training-serving skew, and drift monitoring for production-grade ML systems.",
+  "stats": [
+    { "value": "<100ms", "label": "Inference Latency" },
+    { "value": "500+", "label": "Concurrent Users Tested" },
+    { "value": "100%", "label": "Pipeline Reproducibility" }
+  ],
+  "skills": [
+    "MLOps",
+    "MLflow",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "GitHub Actions",
+    "Python",
+    "FastAPI",
+    "PyTorch",
+    "Scikit-learn",
+    "Feast (Feature Store)",
+    "DVC",
+    "PySpark",
+    "SQL",
+    "Evidently AI",
+    "Prometheus & Grafana"
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role": "B.Tech, Artificial Intelligence & Machine Learning",
+      "company": "REVA University",
+      "companyShort": "REVA UNIVERSITY",
+      "type": "Degree",
+      "location": "Bengaluru, India",
+      "period": "2023",
+      "periodEnd": "Expected 2027",
+      "bullets": [
+        "CGPA: 8.2 / 10",
+        "Relevant coursework: Algorithms, Data Structures, Database Management Systems, Machine Learning"
+      ],
+      "desc": "Bachelor's degree focused on AI/ML fundamentals, algorithms, and systems coursework.",
+      "tech": ["AI/ML", "DSA", "DBMS", "Algorithms"]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "MLOps.dev",
+      "subtitle": "Edge-Native MLOps Platform",
+      "type": "Founder & CEO",
+      "link": "https://www.mlopsde.me",
+      "linkLabel": "Visit Site",
+      "image": "/assets/project-mlopsdev.png",
+      "tech": ["Go", "Python", "ONNX Runtime", "TensorRT", "PostgreSQL", "Flask", "JWT", "PyPI SDK"],
+      "desc": "Founded and built an edge-native MLOps platform for deploying ML models to fleets of ARM devices — Jetson boards, Raspberry Pis — without brittle SSH scripts. A 7.4MB Go agent handles offline-first inference with on-device drift detection in under 2ms, pull-based delta model syncing, and one-command rollbacks. Shipped a 41-endpoint multi-tenant control-plane API, a published Python SDK and CLI (pip install mlops-dev), and a full marketing site with a waitlist and Discord community — built for regulated industries like medical devices and manufacturing that need an auditable record of exactly what model ran on which device, on which date."
+    },
+    {
+      "id": 2,
+      "title": "Text Classification Engine",
+      "subtitle": "CI/CD & Drift Monitoring",
+      "type": "MLOps Pipeline",
+      "link": "https://github.com/Raghunath2604/ticket-classification-mlops",
+      "image": "/assets/project-1.png",
+      "tech": ["Python", "Hugging Face", "MLflow", "Evidently AI", "GitHub Actions", "FastAPI", "Docker", "AWS EC2"],
+      "desc": "Automated NLP classification pipeline with continuous integration, automated evaluation, and deployment. Evidently AI runs scheduled drift checks to catch data and target drift early, while the MLflow Model Registry manages versioning and promotion from staging to production. A GitHub Actions workflow runs linters and tests, builds Docker images, and auto-deploys to AWS EC2 on every change."
+    },
+    {
+      "id": 3,
+      "title": "Real-Time Inference System",
+      "subtitle": "Kubernetes & Monitoring Stack",
+      "type": "Cloud Infrastructure",
+      "link": "https://github.com/Raghunath2604/cv-inference-k8s",
+      "image": "/assets/project-2.png",
+      "tech": ["Kubernetes", "Docker", "FastAPI", "Prometheus", "Grafana", "Locust", "Java"],
+      "desc": "Containerized a computer vision model and orchestrated its deployment as a Kubernetes microservice. Horizontal Pod Autoscaling and tuned resource limits held inference latency under 100ms during traffic spikes, validated by load-testing 500+ concurrent users with Locust. Prometheus and Grafana dashboards track error rates, latency percentiles, and hardware utilization."
+    },
+    {
+      "id": 4,
+      "title": "Feature Store & Lineage Pipeline",
+      "subtitle": "Data-Centric ML Infrastructure",
+      "type": "Data Engineering",
+      "link": "https://github.com/Raghunath2604/txn-feature-pipeline",
+      "image": "/assets/project-3.png",
+      "tech": ["AWS S3", "DVC", "Feast", "PySpark", "Scikit-learn", "SQL"],
+      "desc": "Built a data-centric pipeline for high-frequency transactional anomaly detection. Feast Feature Store serves consistent features across batch training and low-latency online inference, eliminating training-serving skew, while a 2GB dataset is version-controlled with DVC on AWS S3 for full pipeline reproducibility."
+    }
+  ],
+  "publications": [
+    {
+      "id": 1,
+      "title": "Real-World Engineering Management",
+      "platform": "Coursera · AWIT",
+      "year": "2026",
+      "link": "https://coursera.org/verify/specialization/6LCBFF2DYLME",
+      "desc": "3-course specialization"
+    },
+    {
+      "id": 2,
+      "title": "MLOps Zero to Hero",
+      "platform": "Udemy",
+      "year": "2026",
+      "link": "https://ude.my/UC-b0aaf49c-f68e-4a5e-846b-0d82fa39612e",
+      "desc": "12.5-hour course"
+    },
+    {
+      "id": 3,
+      "title": "Future Forward: AI for Innovation",
+      "platform": "IBM SkillsBuild",
+      "year": "2026",
+      "link": "https://skills.yourlearning.ibm.com/certificate/PLAN-FA448E08E2A9",
+      "desc": "Completion certificate"
+    },
+    {
+      "id": 4,
+      "title": "Databricks Accredited Generative AI Fundamentals",
+      "platform": "Databricks Academy",
+      "year": "2026",
+      "link": "https://www.databricks.com",
+      "desc": "Academy accreditation"
+    },
+    {
+      "id": 5,
+      "title": "Introduction to Healthcare",
+      "platform": "Stanford Online · Coursera",
+      "year": "2026",
+      "link": "https://coursera.org/verify/FZ1F20Y0TED2",
+      "desc": "Course certificate"
+    },
+    {
+      "id": 6,
+      "title": "Software Engineer at a Startup — Job Simulation",
+      "platform": "Forage",
+      "year": "2026",
+      "link": "https://www.theforage.com",
+      "desc": "Fullstack + analytics tasks"
+    },
+    {
+      "id": 7,
+      "title": "Software Development Engineering (SDE)",
+      "platform": "Y Combinator",
+      "year": "",
+      "link": "https://www.ycombinator.com",
+      "desc": ""
+    },
+    {
+      "id": 8,
+      "title": "Data Structures and Algorithms in Java",
+      "platform": "Infosys",
+      "year": "",
+      "link": "https://www.infosys.com",
+      "desc": ""
+    }
+  ],
+  "socials": [
+    { "label": "GitHub",   "href": "https://github.com/Raghunath2604" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/raghunathareddy-gr-30a964341" }
+  ]
+}
