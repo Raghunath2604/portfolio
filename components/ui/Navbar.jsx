@@ -44,9 +44,12 @@ export default function Navbar() {
 
   // Live clock - set immediately on mount, then every second
   useEffect(() => {
-    setTime(getIST())
+    const frame = requestAnimationFrame(() => setTime(getIST()))
     const id = setInterval(() => setTime(getIST()), 1000)
-    return () => clearInterval(id)
+    return () => {
+      cancelAnimationFrame(frame)
+      clearInterval(id)
+    }
   }, [])
 
   // Auto-hide on scroll-down, reveal on scroll-up or scroll-stop

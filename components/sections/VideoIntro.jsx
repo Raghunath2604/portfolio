@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
@@ -8,6 +8,18 @@ import content from '@/data/content.json'
 import styles from '@/styles/sections/VideoIntro.module.css'
 
 const CinematicLayer = dynamic(() => import('@/components/three/CinematicLayer'), { ssr: false })
+
+function subscribeMobile(callback) {
+  const mq = window.matchMedia('(max-width: 767px)')
+  mq.addEventListener('change', callback)
+  return () => mq.removeEventListener('change', callback)
+}
+function getMobileSnapshot() {
+  return window.matchMedia('(max-width: 767px)').matches
+}
+function getMobileServerSnapshot() {
+  return false
+}
 
 function scrollNext() {
   const main = document.querySelector('main')
@@ -26,11 +38,7 @@ export default function VideoIntro() {
   const [muted,    setMuted]    = useState(true)
   const [playing,  setPlaying]  = useState(true)
   const [showHint, setShowHint] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(window.matchMedia('(max-width: 767px)').matches)
-  }, [])
+  const isMobile = useSyncExternalStore(subscribeMobile, getMobileSnapshot, getMobileServerSnapshot)
 
   // Entrance animation
   useEffect(() => {

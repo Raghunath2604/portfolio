@@ -39,6 +39,7 @@ const VID_VERT = `
 `
 
 const VID_FRAG = `
+  precision highp float;
   uniform sampler2D uVideo;
   uniform float uOpacity;
   uniform float uVideoAspect;
