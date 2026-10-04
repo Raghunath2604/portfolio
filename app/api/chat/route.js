@@ -60,14 +60,48 @@ Rules:
 Portfolio data:
 ${buildPortfolioContext()}`
 
-export async function POST(req) {
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: 'Chat is not configured yet — missing GEMINI_API_KEY on the server.' },
-      { status: 500 }
-    )
+function getFallbackReply(message) {
+  const q = (message || '').toLowerCase()
+  const p = profile
+
+  if (q.includes('skill') || q.includes('stack') || q.includes('tech') || q.includes('tool') || q.includes('language') || q.includes('framework')) {
+    return `${p.name.first}'s core skills include: ${p.skills.join(', ')}. He focuses heavily on production MLOps, containerization, and scalable model serving.`
   }
+
+  if (q.includes('project') || q.includes('work') || q.includes('built') || q.includes('mlops.dev') || q.includes('mlopsdev') || q.includes('startup')) {
+    const list = p.projects.map(pr => `• ${pr.title} (${pr.type}): ${pr.desc}`).join('\n')
+    return `Here are some of ${p.name.first}'s key projects:\n\n${list}\n\nYou can view code and live demos in the Projects section or on GitHub!`
+  }
+
+  if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('reach') || q.includes('message') || q.includes('connect')) {
+    const linkedin = p.socials.find(s => s.label === 'LinkedIn')?.href || 'https://linkedin.com'
+    const github = p.socials.find(s => s.label === 'GitHub')?.href || 'https://github.com'
+    return `You can reach ${p.name.first} directly via email at ${p.email}, or connect on LinkedIn (${linkedin}) and GitHub (${github}).`
+  }
+
+  if (q.includes('cert') || q.includes('license') || q.includes('publication') || q.includes('credential')) {
+    const certs = p.publications.slice(0, 4).map(c => `• ${c.title} (${c.platform})`).join('\n')
+    return `${p.name.first} holds industry credentials including:\n\n${certs}\n\n...plus several more in the Certifications section!`
+  }
+
+  if (q.includes('education') || q.includes('college') || q.includes('degree') || q.includes('university') || q.includes('study')) {
+    const edu = p.experience.map(e => `${e.role} at ${e.company} (${e.period})`).join(', ')
+    return `${p.name.first} is currently pursuing his ${edu}. He is open to AI/ML and MLOps engineering opportunities.`
+  }
+
+  if (q.includes('who are you') || q.includes('what are you') || q.includes('your name') || q.includes('micky')) {
+    return `I'm Micky, an AI assistant built into ${p.name.first}'s portfolio! I can help you explore his projects, technical skills, certifications, and background. What would you like to know?`
+  }
+
+  if (q.includes('who is') || q.includes('about') || q.includes('bio') || q.includes('background') || q.includes('tell me about')) {
+    return `${p.name.full} is an ${p.roles.detailed} based in ${p.location.based}. He specializes in architecting end-to-end ML lifecycles, CI/CD automation, and cloud infrastructure with sub-100ms inference latency.`
+  }
+
+  return `Thanks for asking! ${p.name.full} is an ${p.roles.primary} specializing in MLOps, cloud infrastructure, and production ML systems. You can ask me about his projects (like MLOps.dev), technical skills, certifications, or how to contact him!`
+}
+
+export async function POST(req) {
+  const apiKey = (process.env.GEMINI_API_KEY || '').trim()
 
   let body
   try {
@@ -87,6 +121,11 @@ export async function POST(req) {
       { error: `Message is too long (max ${MAX_MESSAGE_LEN} characters).` },
       { status: 400 }
     )
+  }
+
+  // If Gemini key is missing or not a standard Google AI Studio key, respond with grounded fallback
+  if (!apiKey || !apiKey.startsWith('AIzaSy')) {
+    return NextResponse.json({ reply: getFallbackReply(message) })
   }
 
   // Keep only the last N turns, and only well-formed ones
@@ -116,24 +155,18 @@ export async function POST(req) {
 
     if (!geminiRes.ok) {
       const errText = await geminiRes.text().catch(() => '')
-      console.error('Gemini API error', geminiRes.status, errText)
-      return NextResponse.json(
-        { error: `Micky is having trouble responding right now (upstream ${geminiRes.status}).` },
-        { status: 502 }
-      )
+      console.warn('Gemini API returned error', geminiRes.status, errText, '- using grounded profile fallback')
+      return NextResponse.json({ reply: getFallbackReply(message) })
     }
 
     const data = await geminiRes.json()
     const reply =
-      data?.candidates?.[0]?.content?.parts?.map(p => p.text).join('') ??
-      "Sorry, I couldn't come up with a response to that — try rephrasing?"
+      data?.candidates?.[0]?.content?.parts?.map(p => p.text).join('') ||
+      getFallbackReply(message)
 
     return NextResponse.json({ reply })
   } catch (err) {
-    console.error('Chat route error', err)
-    return NextResponse.json(
-      { error: 'Something went wrong reaching Micky. Please try again in a moment.' },
-      { status: 500 }
-    )
+    console.warn('Chat route error:', err?.message, '- using grounded profile fallback')
+    return NextResponse.json({ reply: getFallbackReply(message) })
   }
 }
